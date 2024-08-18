@@ -5,19 +5,10 @@ import MovieCard from "./MovieCard";
 import Pagination from "./Pagination";
 import MovieContext from "../Context/MovieContext";
 
-export default function TrendingMovies() {
-  const [movies, setMovies] = useState(null);
-  const [pageNo, setPageNo] = useState(1);
-
+export default function TrendingMovies({pageNo,handleNext,handlePrev}) {
   const {watchList} = useContext(MovieContext);
-
-  const handleNext = () => {
-    setPageNo(pageNo + 1);
-  };
-
-  function handlePrev() {
-    if (pageNo > 1) setPageNo(pageNo - 1);
-  }
+  const [movies, setMovies] = useState(null);
+  
 
   // console.log(movies);
 

@@ -25,6 +25,15 @@ function App() {
     );
     setWatchList(filterWatchList);
   };
+  
+  const [pageNo, setPageNo] = useState(1);
+  const handleNext = () => {
+    setPageNo(pageNo + 1);
+  };
+
+  function handlePrev() {
+    if (pageNo > 1) setPageNo(pageNo - 1);
+  }
 
   return (
     <BrowserRouter>
@@ -40,6 +49,9 @@ function App() {
                   // watchList={watchList}
                   // addToWatchList={addToWatchList}
                   // removeFromWatchlist={removeFromWatchlist}
+                  pageNo={pageNo}
+                  handleNext={handleNext}
+                  handlePrev={handlePrev}
                 />
               </>
             }
