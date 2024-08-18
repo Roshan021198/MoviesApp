@@ -4,11 +4,12 @@ import { BASE_URL } from "../utils/constant";
 import MovieCard from "./MovieCard";
 import Pagination from "./Pagination";
 import MovieContext from "../Context/MovieContext";
+import PaginationContext from "../Context/PaginationContext";
 
-export default function TrendingMovies({pageNo,handleNext,handlePrev}) {
+export default function TrendingMovies() {
   const {watchList} = useContext(MovieContext);
   const [movies, setMovies] = useState(null);
-  
+  const {pageNo} = useContext(PaginationContext);
 
   // console.log(movies);
 
@@ -46,11 +47,7 @@ export default function TrendingMovies({pageNo,handleNext,handlePrev}) {
           );
         })}
       </div>
-      <Pagination
-        pageNo={pageNo}
-        handleNext={handleNext}
-        handlePrev={handlePrev}
-      />
+      <Pagination/>
     </>
   );
 }

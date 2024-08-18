@@ -8,6 +8,7 @@ import Pagination from "./Components/Pagination";
 import WatchList from "./Components/WatchList";
 import { useState, useEffect } from "react";
 import MovieContext from "./Context/MovieContext";
+import PaginationContext from "./Context/PaginationContext";
 
 function App() {
   const [watchList, setWatchList] = useState(
@@ -25,7 +26,7 @@ function App() {
     );
     setWatchList(filterWatchList);
   };
-  
+
   const [pageNo, setPageNo] = useState(1);
   const handleNext = () => {
     setPageNo(pageNo + 1);
@@ -38,21 +39,27 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <MovieContext.Provider value={{watchList,addToWatchList,removeFromWatchlist,setWatchList}}>
+      <MovieContext.Provider
+        value={{ watchList, addToWatchList, removeFromWatchlist, setWatchList }}
+      >
         <Routes>
           <Route
             path="/"
             element={
               <>
                 <Banner />
-                <TrendingMovies
+                <PaginationContext.Provider
+                  value={{ pageNo, handleNext, handlePrev }}
+                >
+                  <TrendingMovies
                   // watchList={watchList}
                   // addToWatchList={addToWatchList}
                   // removeFromWatchlist={removeFromWatchlist}
-                  pageNo={pageNo}
-                  handleNext={handleNext}
-                  handlePrev={handlePrev}
-                />
+                  // pageNo={pageNo}
+                  // handleNext={handleNext}
+                  // handlePrev={handlePrev}
+                  />
+                </PaginationContext.Provider>
               </>
             }
           />
@@ -61,9 +68,9 @@ function App() {
             path="/watchlist"
             element={
               <WatchList
-                // movies={watchList}
-                // removeFromWatchlist={removeFromWatchlist}
-                // setWatchList={setWatchList}
+              // movies={watchList}
+              // removeFromWatchlist={removeFromWatchlist}
+              // setWatchList={setWatchList}
               />
             }
           />
