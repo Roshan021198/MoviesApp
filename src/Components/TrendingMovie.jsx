@@ -1,13 +1,15 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { BASE_URL } from "../utils/constant";
 import MovieCard from "./MovieCard";
 import Pagination from "./Pagination";
+import MovieContext from "../Context/MovieContext";
 
-export default function TrendingMovies({watchList,addToWatchList,removeFromWatchlist}) {
+export default function TrendingMovies() {
   const [movies, setMovies] = useState(null);
   const [pageNo, setPageNo] = useState(1);
-  
+
+  const {watchList} = useContext(MovieContext);
 
   const handleNext = () => {
     setPageNo(pageNo + 1);
@@ -37,7 +39,6 @@ export default function TrendingMovies({watchList,addToWatchList,removeFromWatch
     return <h1>...Loading</h1>;
   }
 
-  console.log(watchList);
   return (
     <>
       <h1 className="text-center m-12 text-4xl font-bold">Trending Movies</h1>
@@ -49,9 +50,7 @@ export default function TrendingMovies({watchList,addToWatchList,removeFromWatch
               movie={movie}
               title={movie.title}
               poster={BASE_URL + movie.backdrop_path}
-              fav={watchList.some((moviesObj)=> moviesObj.id === movie.id)}
-              addToWatchList={addToWatchList}
-              removeFromWatchlist={removeFromWatchlist}
+              fav={watchList.some((moviesObj) => moviesObj.id === movie.id)}
             />
           );
         })}

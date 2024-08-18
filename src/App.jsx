@@ -7,6 +7,7 @@ import TrendingMovies from "./Components/TrendingMovie";
 import Pagination from "./Components/Pagination";
 import WatchList from "./Components/WatchList";
 import { useState, useEffect } from "react";
+import MovieContext from "./Context/MovieContext";
 
 function App() {
   const [watchList, setWatchList] = useState(
@@ -28,32 +29,34 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Banner />
-              <TrendingMovies
-                watchList={watchList}
-                addToWatchList={addToWatchList}
-                removeFromWatchlist={removeFromWatchlist}
-              />
-            </>
-          }
-        />
+      <MovieContext.Provider value={{watchList,addToWatchList,removeFromWatchlist,setWatchList}}>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Banner />
+                <TrendingMovies
+                  // watchList={watchList}
+                  // addToWatchList={addToWatchList}
+                  // removeFromWatchlist={removeFromWatchlist}
+                />
+              </>
+            }
+          />
 
-        <Route
-          path="/watchlist"
-          element={
-            <WatchList
-              movies={watchList}
-              removeFromWatchlist={removeFromWatchlist}
-              setWatchList={setWatchList}
-            />
-          }
-        />
-      </Routes>
+          <Route
+            path="/watchlist"
+            element={
+              <WatchList
+                // movies={watchList}
+                // removeFromWatchlist={removeFromWatchlist}
+                // setWatchList={setWatchList}
+              />
+            }
+          />
+        </Routes>
+      </MovieContext.Provider>
     </BrowserRouter>
   );
 }
